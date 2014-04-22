@@ -20,7 +20,7 @@ api = TwitterAPI(consumer_key, consumer_secret, access_token_key, access_token_s
 
 # word_list contains all of the words to be searched
 word_list = [
-	]
+    ]
 
 
 def search(words):
