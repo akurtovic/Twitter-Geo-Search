@@ -38,14 +38,13 @@ def search(words):
 
 				#loop through coordinates list and join cords into string
 				for i in item['coordinates']['coordinates']:
-					cords = unicode(cords + str(i) + '|')
+					cords = unicode(cords + str(i) + ',')
 
 				id_str = unicode(item['id_str'])
 				text = unicode(item['text'])
 				screen_name = unicode(item['user']['screen_name'])
 				created_at = unicode(item['created_at'])
-				entry.append(id_str + '|' + cords + '|' + text + '|' + screen_name + '|' + created_at + '\n')
-	print "The entry is ", entry
+				entry.append(id_str + ',' + cords + ',' + text + ',' + screen_name + ',' + created_at + '\n')
 	return entry
 	
 def checkDup(searchresult):
@@ -53,7 +52,7 @@ def checkDup(searchresult):
 	# for each line in the logfile
 	for line in searchresult:
 		isDuplicate = False #initiate isDuplicate flag at false
-		logfile = codecs.open("output2.txt", mode="r", encoding='utf-8')
+		logfile = codecs.open("log.csv", mode="r", encoding='utf-8')
 		tweetID = line[0:18]
 	
 		# Check each entry in the logfile and set isDuplicate flag
@@ -73,9 +72,9 @@ def checkDup(searchresult):
 		logfile.close()
 
 def addEntry(entry):
-	logfile = codecs.open("output2.txt", mode="a", encoding='utf-8')
+	logfile = codecs.open("log.csv", mode="a", encoding='utf-8')
 	logfile.write(entry)
-	print "Added " + entry[0:18] + " to logfile"
+	print "Added Tweet ID#" + entry[0:18] + " to log.csv"
 	logfile.close()
 	
 
