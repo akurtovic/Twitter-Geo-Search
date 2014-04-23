@@ -20,17 +20,22 @@ api = TwitterAPI(consumer_key, consumer_secret, access_token_key, access_token_s
 
 # What to search for
 searchTerm = ""
-
 r = api.request('statuses/filter', {'track':searchTerm})
-logfile = codecs.open("log.csv", mode="a", encoding='utf-8')
-hits = 0
+
+
+try:
+    logfile = codecs.open("log.csv", mode="a", encoding='utf-8')
+except:
+    f = open('log.csv','w+')
+    f.close()
+    logfile = codecs.open("log.csv", mode="a", encoding='utf-8')
 
 for item in r:
 	if (item['coordinates'] == None):
 		pass
 	else:
 		cords = '' #string containing coordinates
-		hits += 1
+		
 		#loop through coordinates list and join cords into string
 		for i in item['coordinates']['coordinates']:
 			cords = unicode(cords + str(i) + ',')
@@ -41,7 +46,3 @@ for item in r:
 		created_at = unicode(item['created_at'])
 		entry = id_str + ',' + cords + text + ',' + screen_name + ',' + created_at + '\n'
 		logfile.write(entry)
-		
-		if(hits>100):
-			logfile.close()
-			break

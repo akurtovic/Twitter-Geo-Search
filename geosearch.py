@@ -22,6 +22,12 @@ api = TwitterAPI(consumer_key, consumer_secret, access_token_key, access_token_s
 word_list = [
     ]
 
+try:
+    logfile = codecs.open("log.csv", mode="a", encoding='utf-8')
+except:
+    f = open('log.csv','w+')
+    f.close()
+    logfile = codecs.open("log.csv", mode="a", encoding='utf-8')
 
 def search(words):
 	
